@@ -84,7 +84,7 @@ func parseStats(data []byte) (*ServerStats, error) {
 
 func checkStats(stats *ServerStats) {
 	if stats.LoadAverage > LoadAverageThreshold {
-		fmt.Printf("Load Average is too high: %.2f\n", stats.LoadAverage)
+		fmt.Printf("Load Average is too high: %.0f\n", stats.LoadAverage)
 	}
 	if stats.RAMTotal > 0 {
 		ramUsedPercent := (float64(stats.RAMUsed) / float64(stats.RAMTotal)) * 100
@@ -104,7 +104,7 @@ func checkStats(stats *ServerStats) {
 		netUsedPercent := (float64(stats.NetworkBwUsed) / float64(stats.NetworkBwTotal)) * 100
 		if NetworkBwUsedThreshold < netUsedPercent {
 			availableBps := stats.NetworkBwTotal - stats.NetworkBwUsed
-			availableMbps := (float64(availableBps) * 8) / float64(BitsInMegabit)
+			availableMbps := float64(availableBps) / float64(BitsInMegabit)
 			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", availableMbps)
 		}
 	}
