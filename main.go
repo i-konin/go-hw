@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const serverURL = "http://localhost:8080/_stats"
+const serverURL = "http://srv.msk01.gigacorp.local/_stats"
 
 const (
 	LoadAverageThreshold   = 30.0
