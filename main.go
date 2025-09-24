@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"math"
 	"net/http"
 	"strconv"
 	"strings"
@@ -90,14 +89,14 @@ func checkStats(stats *ServerStats) {
 	if stats.RAMTotal > 0 {
 		ramUsedPercent := (float64(stats.RAMUsed) / float64(stats.RAMTotal)) * 100
 		if RAMUsedThreshold < ramUsedPercent {
-			fmt.Printf("Memory usage too high: %.0f%%\n", ramUsedPercent)
+			fmt.Printf("Memory usage too high: %d%%\n", int(ramUsedPercent))
 		}
 	}
 	if stats.DiskTotal > 0 {
-		dickUsedPercent := (float64(stats.DiskUsed) / float64(stats.DiskTotal)) * 100
-		if DiskUsedThreshold < dickUsedPercent {
+		diskUsedPercent := (float64(stats.DiskUsed) / float64(stats.DiskTotal)) * 100
+		if DiskUsedThreshold < diskUsedPercent {
 			freeSpaceBytes := stats.DiskTotal - stats.DiskUsed
-			freeSpaceMb := freeSpaceBytes / BytesInMegabyte
+			freeSpaceMb := float64(freeSpaceBytes) / float64(BytesInMegabyte)
 			fmt.Printf("Free disk space is too low: %d Mb left\n", freeSpaceMb)
 		}
 	}
@@ -106,7 +105,7 @@ func checkStats(stats *ServerStats) {
 		if NetworkBwUsedThreshold < netUsedPercent {
 			availableBps := stats.NetworkBwTotal - stats.NetworkBwUsed
 			availableMbps := float64(availableBps) / float64(BitsInMegabit)
-			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", math.RoundToEven(availableMbps))
+			fmt.Printf("Network bandwidth usage high: %d Mbit/s available\n", int(availableMbps))
 		}
 	}
 }
