@@ -97,7 +97,7 @@ func checkStats(stats *ServerStats) {
 		if DiskUsedThreshold < diskUsedPercent {
 			freeSpaceBytes := stats.DiskTotal - stats.DiskUsed
 			freeSpaceMb := float64(freeSpaceBytes) / float64(BytesInMegabyte)
-			fmt.Printf("Free disk space is too low: %d Mb left\n", freeSpaceMb)
+			fmt.Printf("Free disk space is too low: %d Mb left\n", int(freeSpaceMb))
 		}
 	}
 	if stats.NetworkBwTotal > 0 {
