@@ -38,7 +38,7 @@ func parseStats(data []byte) (*ServerStats, error) {
 	parts := strings.Split(s, ",")
 
 	if len(parts) != 7 {
-		return nil, fmt.Errorf("Ожидалось 7 полей, получено %d", len(parts))
+		return nil, fmt.Errorf("ожидалось 7 полей, получено %d", len(parts))
 	}
 
 	stats := &ServerStats{}
@@ -113,22 +113,22 @@ func checkStats(stats *ServerStats) {
 func performCheck() error {
 	resp, err := http.Get(serverURL)
 	if err != nil {
-		return fmt.Errorf("Ошибка ри выполнении запроса: %w", err)
+		return fmt.Errorf("ошибка ри выполнении запроса: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("Сервер вернул некорректный статус: %s", resp.Status)
+		return fmt.Errorf("сервер вернул некорректный статус: %s", resp.Status)
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("Ошибка при парсинге ответа: %w", err)
+		return fmt.Errorf("ошибка при парсинге ответа: %w", err)
 	}
 
 	stats, err := parseStats(body)
 	if err != nil {
-		return fmt.Errorf("Ошибка при парсинге данных сервера: %w", err)
+		return fmt.Errorf("ошибка при парсинге данных сервера: %w", err)
 	}
 
 	checkStats(stats)
