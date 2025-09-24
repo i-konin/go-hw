@@ -106,7 +106,7 @@ func checkStats(stats *ServerStats) {
 		if NetworkBwUsedThreshold < netUsedPercent {
 			availableBps := stats.NetworkBwTotal - stats.NetworkBwUsed
 			availableMbps := float64(availableBps) / float64(BitsInMegabit)
-			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", math.Ceil(availableMbps))
+			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", math.RoundToEven(availableMbps))
 		}
 	}
 }
